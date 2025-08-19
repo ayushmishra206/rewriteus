@@ -30,9 +30,6 @@
             --gradient-accent: linear-gradient(135deg, #3E79CB 0%, #2C272E 100%);
             --shadow-soft: 0 8px 32px rgba(44, 39, 46, 0.08);
             --shadow-hover: 0 16px 48px rgba(44, 39, 46, 0.12);
-            
-            /* Formspree Configuration - Update this URL as needed */
-            --formspree-url: 'https://formspree.io/f/xrblwppl';
         }
 
         * {
@@ -423,12 +420,9 @@
                     </div>
 
                     <div class="email-form">
-                        <form id="notifyForm" method="POST">
-                            <input type="hidden" name="subject" value="New subscriber for Rewrite Us">
-                            <input type="hidden" name="book_title" value="Rewrite Us">
-
+                        <form id="notifyForm">
                             <div class="form-group">
-                                <input type="email" name="email" class="form-input" placeholder="your email address"
+                                <input type="email" id="emailInput" class="form-input" placeholder="your email address"
                                     required>
                             </div>
                             <button type="submit" class="cta-button">
@@ -455,13 +449,13 @@
     </section>
 
     <script>
-        // Configuration - Formspree URL from CSS variables
-        const FORMSPREE_URL = getComputedStyle(document.documentElement)
-            .getPropertyValue('--formspree-url')
-            .replace(/['"]/g, '').trim();
+        // Google Form configuration
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScrmPLF2tNq7emqRiHDikZuD2nqBZoRIN2MWBSVGp-v8H7zvA/formResponse';
+        const EMAIL_FIELD_NAME = 'entry.191220509'; // Correct field name from your Google Form
 
-        // Form handling with validation and user feedback
+        // Form handling
         const form = document.getElementById('notifyForm');
+        const emailInput = document.getElementById('emailInput');
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
         const loading = document.querySelector('.loading');
@@ -471,7 +465,7 @@
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            const email = form.email.value;
+            const email = emailInput.value;
 
             // Basic email validation
             if (!isValidEmail(email)) {
@@ -483,20 +477,21 @@
             showLoading();
 
             try {
-                const response = await fetch(FORMSPREE_URL, {
+                // Create form data for Google Forms
+                const formData = new FormData();
+                formData.append(EMAIL_FIELD_NAME, email);
+
+                // Submit to Google Forms
+                await fetch(GOOGLE_FORM_URL, {
                     method: 'POST',
-                    body: new FormData(form),
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    mode: 'no-cors', // Important for Google Forms
+                    body: formData
                 });
 
-                if (response.ok) {
-                    showSuccess();
-                    form.reset();
-                } else {
-                    throw new Error('Network response was not ok');
-                }
+                // Since no-cors doesn't return response data, we assume success
+                showSuccess();
+                form.reset();
+
             } catch (error) {
                 showError('Something went wrong. Please try again.');
                 console.error('Form submission error:', error);
