@@ -8,6 +8,10 @@
     <meta name="description"
         content="Get notified when Rewrite Us, the new romance novel by Bulbul Solanki, launches in October 2025. A story of second chances, fake dating, and finding love again.">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/HDw3G4Rh/Cover.jpg">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/HDw3G4Rh/Cover.jpg">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +30,9 @@
             --gradient-accent: linear-gradient(135deg, #3E79CB 0%, #2C272E 100%);
             --shadow-soft: 0 8px 32px rgba(44, 39, 46, 0.08);
             --shadow-hover: 0 16px 48px rgba(44, 39, 46, 0.12);
+            
+            /* Formspree Configuration - Update this URL as needed */
+            --formspree-url: 'https://formspree.io/f/xrblwppl';
         }
 
         * {
@@ -40,36 +47,37 @@
             color: var(--deep-charcoal);
             line-height: 1.6;
             overflow-x: hidden;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding: 20px 0;
         }
 
         .hero-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 60px;
             align-items: center;
             width: 100%;
         }
 
         .hero-text {
-            padding: 40px 0;
+            padding: 20px 0;
         }
 
         .coming-soon {
@@ -87,7 +95,7 @@
 
         .hero h1 {
             font-family: 'Crimson Text', serif;
-            font-size: clamp(3.5rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 5vw, 5rem);
             font-weight: 600;
             line-height: 1.1;
             margin-bottom: 16px;
@@ -95,7 +103,7 @@
         }
 
         .hero .tagline {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
             color: var(--deep-charcoal);
             margin-bottom: 24px;
             opacity: 0.8;
@@ -190,11 +198,13 @@
         .book-cover {
             position: relative;
             text-align: center;
+            padding: 20px 0;
         }
 
         .cover-image {
             width: 100%;
-            max-width: 380px;
+            max-width: 350px;
+            height: auto;
             border-radius: 12px;
             box-shadow: var(--shadow-soft);
             transition: all 0.4s ease;
@@ -255,45 +265,112 @@
         @media (max-width: 768px) {
             .hero-content {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 30px;
                 text-align: center;
+            }
+
+            .hero {
+                padding: 40px 0;
+                min-height: auto;
+            }
+
+            .hero-text {
+                order: 2;
+                padding: 0;
+            }
+
+            .book-cover {
+                order: 1;
+                padding: 0;
+            }
+
+            .cover-image {
+                max-width: 280px;
+            }
+
+            .email-form,
+            .book-description {
+                margin-top: 20px;
+                padding: 20px;
+            }
+
+            .book-description p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .coming-soon {
+                font-size: 11px;
+                padding: 4px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
             }
 
             .hero {
                 padding: 20px 0;
             }
 
-            .email-form,
-            .book-description {
-                margin-top: 24px;
-                padding: 24px;
-            }
-
-            .book-description p {
-                font-size: 0.9rem;
-            }
-
-            .container {
-                padding: 0 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 16px;
-            }
-
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.2rem;
+                margin-bottom: 12px;
             }
 
             .hero .tagline {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .cover-image {
+                max-width: 240px;
             }
 
             .email-form,
             .book-description {
-                padding: 20px;
+                padding: 16px;
+                margin-top: 16px;
+            }
+
+            .book-description p {
+                font-size: 0.85rem;
+                margin-bottom: 12px;
+            }
+
+            .form-input {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .cta-button {
+                padding: 14px 20px;
+                font-size: 14px;
+            }
+
+            .coming-soon {
+                font-size: 10px;
+                padding: 3px 10px;
+                margin-bottom: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .cover-image {
+                max-width: 200px;
+            }
+
+            .hero-content {
+                gap: 20px;
             }
         }
 
@@ -346,12 +423,12 @@
                     </div>
 
                     <div class="email-form">
-                        <form id="notifyForm" action="https://formspree.io/f/xovlzkkq" method="POST">
-                            <input type="hidden" name="Subject" value="New subscriber for Rewrite Us">
-                            <input type="hidden" name="Book_title" value="Rewrite Us">
+                        <form id="notifyForm" method="POST">
+                            <input type="hidden" name="subject" value="New subscriber for Rewrite Us">
+                            <input type="hidden" name="book_title" value="Rewrite Us">
 
                             <div class="form-group">
-                                <input type="email" name="Email" class="form-input" placeholder="your email address"
+                                <input type="email" name="email" class="form-input" placeholder="your email address"
                                     required>
                             </div>
                             <button type="submit" class="cta-button">
@@ -378,6 +455,11 @@
     </section>
 
     <script>
+        // Configuration - Formspree URL from CSS variables
+        const FORMSPREE_URL = getComputedStyle(document.documentElement)
+            .getPropertyValue('--formspree-url')
+            .replace(/['"]/g, '').trim();
+
         // Form handling with validation and user feedback
         const form = document.getElementById('notifyForm');
         const successMessage = document.getElementById('successMessage');
@@ -401,7 +483,7 @@
             showLoading();
 
             try {
-                const response = await fetch(form.action, {
+                const response = await fetch(FORMSPREE_URL, {
                     method: 'POST',
                     body: new FormData(form),
                     headers: {
